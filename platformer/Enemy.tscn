@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Enemy.gd" type="Script" id=1]
+[ext_resource path="res://badguy2d.jpg" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5.43364, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.39131, 5.625 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 5.91961, 1.48346 )
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 8.5, 7.5 )
+scale = Vector2( 0.0125, 0.0141667 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 8 )
+shape = SubResource( 1 )
+
+[node name="MID" type="RayCast2D" parent="."]
+position = Vector2( 8, 8 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+collision_mask = 2
+
+[node name="Side_checker" type="Area2D" parent="."]
+collision_layer = 0
+__meta__ = {
+"_editor_description_": "the side cheker's collision layer should be left unchecked"
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Side_checker"]
+position = Vector2( 8.60869, 8 )
+shape = SubResource( 2 )
+
+[node name="Head_checker" type="Area2D" parent="."]
+collision_layer = 2147483664
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head_checker"]
+position = Vector2( 8, -1.98649 )
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="body_entered" from="Side_checker" to="." method="_on_Side_checker_body_entered"]
+[connection signal="body_entered" from="Head_checker" to="." method="_on_Head_checker_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

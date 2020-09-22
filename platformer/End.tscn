@@ -1,0 +1,15 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_right = 320.0
+margin_bottom = 184.0
+text = "You Win!
+press alt + f4 to quit the game (windows)
+or press command + q  for Mac"
+__meta__ = {
+"_edit_use_anchors_": false
+}
